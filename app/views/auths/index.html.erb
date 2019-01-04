@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Auths</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Principal</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @auths.each do |auth| %>
+      <tr>
+        <td><%= auth.name %></td>
+        <td><%= auth.principal %></td>
+        <td><%= link_to 'Show', auth %></td>
+        <td><%= link_to 'Edit', edit_auth_path(auth) %></td>
+        <td><%= link_to 'Destroy', auth, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Auth', new_auth_path %>

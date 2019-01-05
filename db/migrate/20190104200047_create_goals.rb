@@ -1,8 +1,8 @@
 class CreateGoals < ActiveRecord::Migration[5.2]
   def change
     create_table :goals do |t|
-      t.int :year
-      t.int :count
+      t.integer :year
+      t.integer :count
 
       t.timestamps
     end

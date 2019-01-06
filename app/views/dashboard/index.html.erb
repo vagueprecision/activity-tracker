@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Goals</h1>
+
+<%= link_to 'New Activity', new_activity_path %>
+<%= link_to 'New Goal', new_goal_path %>
+
+<ul>
+  <% @goals.each do |goal| %>
+  <li>
+    <%= goal.count %> / <%= goal.target %>
+    <%= link_to 'Add Progress <plus icon>', new_activity_path %>
+    <%= link_to 'Edit <pencil icon>', edit_goal_path(goal) %>
+    <%= link_to 'Remove <x icon>', goal, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </li>
+  <% end %>
+</ul>
+<ul>
+  <% @activities.each do |activity| %>
+  <li>
+    <%= activity.name %> - <%= activity.count %><%= link_to 'Add Progress <plus icon>', new_activity_path %>
+  </li>
+  <% end %>
+</ul>

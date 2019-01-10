@@ -10,7 +10,7 @@ RSpec.describe "activities/new", type: :view do
   it "renders new activity form" do
     render
 
-    assert_select "form[action=?][method=?]", activities_path, "post" do
+    assert_select "form[action=?][method=?]", user_activities_path, "post" do
 
       assert_select "input[name=?]", "activity[name]"
     end

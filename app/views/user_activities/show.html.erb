@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Performed at:</strong>
+  <%= @user_activity.performed_at %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user_activity.name %>
+</p>
+
+<%= link_to 'Edit', edit_user_activity_path(@user_activity) %> |
+<%= link_to 'Back', user_activities_path %>

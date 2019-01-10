@@ -1,10 +1,10 @@
-<%= form_with(model: activity, local: true) do |form| %>
-  <% if activity.errors.any? %>
+<%= form_with(model: user_activity, local: true) do |form| %>
+  <% if user_activity.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(activity.errors.count, "error") %> prohibited this activity from being saved:</h2>
+      <h2><%= pluralize(user_activity.errors.count, "error") %> prohibited this user_activity from being saved:</h2>
 
       <ul>
-      <% activity.errors.full_messages.each do |message| %>
+      <% user_activity.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

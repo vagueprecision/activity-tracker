@@ -6,8 +6,8 @@ class CreateUserGoals < ActiveRecord::Migration[5.2]
       t.integer :year, null: false
       # t.datetime :starts_at, null: false
       # t.datetime :ends_at, null: false
-      t.integer :count, null: false, default: 0
-      t.integer :target, null: false
+      t.decimal :count, null: false, precision: 8, scale: 2, default: 0
+      t.decimal :target, null: false, precision: 8, scale: 2
       # t.string :frequency, null: false, limit: 36 - will likely need refactoring to make this work correctly
 
       t.timestamps null: false

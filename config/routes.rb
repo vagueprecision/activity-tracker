@@ -3,10 +3,8 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
-  resources :friends
-  resources :goals
-  resources :categories
-  resources :auths
-  resources :activities
-  resources :users
+  resources :user_goals, only: [:new, :edit, :create, :update, :destroy]
+  resources :user_activities, only: [:new, :edit, :create, :update, :destroy]
+  resources :categories, only: [:index]
+  resources :activities, only: [:index]
 end

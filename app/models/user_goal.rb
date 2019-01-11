@@ -8,7 +8,7 @@ class UserGoal < ApplicationRecord
 
 	before_create :update_count
 
-	scope :for(datetime), -> { where(year: datetime.year) } #utc or local?
+	scope :for, ->(datetime) { where(year: datetime.year) } #utc or local?
 
   def attr_not_changed
     errors.add(:user_id, "Change of user_id not allowed!") if user_id_changed?

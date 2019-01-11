@@ -10,65 +10,68 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_10_205417) do
+ActiveRecord::Schema.define(version: 2019_01_10_210706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "activities", force: :cascade do |t|
-    t.datetime "performed_at"
-    t.string "name"
+    t.string "name", limit: 36, null: false
+    t.string "unit", limit: 36, default: "time", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string "name"
+    t.string "name", limit: 36, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "activity_id"
-  end
-
-  create_table "friends", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "goals", force: :cascade do |t|
-    t.integer "year"
-    t.integer "count"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "activity_id"
-    t.integer "target"
-    t.string "frequency"
   end
 
   create_table "user_activities", force: :cascade do |t|
-    t.string "name"
+    t.bigint "user_id", null: false
+    t.bigint "activity_id", null: false
+    t.decimal "perform_count", precision: 8, scale: 2, null: false
+    t.datetime "performed_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["activity_id"], name: "index_user_activities_on_activity_id"
+    t.index ["user_id"], name: "index_user_activities_on_user_id"
+  end
+
+  create_table "user_activity_categories", force: :cascade do |t|
+    t.bigint "user_activity_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_user_activity_categories_on_category_id"
+    t.index ["user_activity_id"], name: "index_user_activity_categories_on_user_activity_id"
+  end
+
+  create_table "user_goals", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "activity_id", null: false
+    t.integer "year", null: false
+    t.decimal "count", precision: 8, scale: 2, default: "0.0", null: false
+    t.decimal "target", precision: 8, scale: 2, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activity_id"], name: "index_user_goals_on_activity_id"
+    t.index ["user_id"], name: "index_user_goals_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "principal"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "provider"
+    t.string "uid"
+    t.string "name"
+    t.text "image"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "provider"
-    t.string "uid"
-    t.string "name"
-    t.text "image"
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

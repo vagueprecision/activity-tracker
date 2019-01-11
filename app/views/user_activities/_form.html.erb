@@ -11,14 +11,16 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :performed_at %>
-    <%= form.datetime_select :performed_at %>
-  </div>
+  <%= f.collection_select :activity_id, Activity.order(:name),:id,:name, include_blank: true %>
 
   <div class="field">
     <%= form.label :name %>
     <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :performed_at %>
+    <%= form.datetime_select :performed_at %>
   </div>
 
   <div class="actions">

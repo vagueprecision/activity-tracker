@@ -1,8 +1,8 @@
 class CreateUserActivities < ActiveRecord::Migration[5.2]
   def change
     create_table :user_activities do |t|
-      t.integer :user_id, null: false
-      t.integer :activity_id, null: false
+      t.belongs_to :user, null: false, index: true
+      t.belongs_to :activity, null: false, index: true
       t.datetime :performed_at, null: false
 
       t.timestamps null: false

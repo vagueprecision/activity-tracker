@@ -13,16 +13,16 @@ class UserActivity < ApplicationRecord
   scope :group_by_activity, -> { includes(:activity).group(:activity_id) }
 
 	def increment_goals
-		related_goals(performed_at).each(&:increment)
+		related_goals(performed_at).each{ |g| g.increment(perform_count) }
 	end
 
   def decrement_goals
-		related_goals(performed_at).each(&:decrement)
+		related_goals(performed_at).each{ |g| g.decrement(perform_count_was) }
 	end
 
   def update_goals
-    related_goals(performed_at_was).each(&:decrement)
-    related_goals(performed_at).each(&:increment)
+    related_goals(performed_at_was).each{ |g| g.decrement(perform_count_was) }
+    related_goals(performed_at).each{ |g| g.increment(perform_count) }
   end
 
   def related_goals(datetime)

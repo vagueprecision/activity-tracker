@@ -1,0 +1,12 @@
+<div class="field">
+	Activity<br/>
+	Existing:
+	<%= form.collection_select :activity_id, Activity.order(:name),:id,:name, include_blank: true, selected: params[:activity_id] %>
+	or New:
+	<%= form.text_field :activity_name %>
+</div>
+
+<div class="field">
+	<%= form.label :activity_unit %>
+	<%= form.text_field :activity_unit, value: "time" %>
+</div>

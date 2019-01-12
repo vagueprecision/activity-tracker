@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2019_01_10_210706) do
   create_table "user_activities", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "activity_id", null: false
-    t.decimal "perform_count", precision: 8, scale: 2, null: false
+    t.decimal "perform_count", precision: 8, scale: 2, default: "1.0", null: false
     t.datetime "performed_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

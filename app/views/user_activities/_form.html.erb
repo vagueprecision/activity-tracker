@@ -11,16 +11,16 @@
     </div>
   <% end %>
 
-  <%= f.collection_select :activity_id, Activity.order(:name),:id,:name, include_blank: true %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+  <%= render partial: 'activity/form', locals: { form: form, activity_id: params[:activity_id] } %>
 
   <div class="field">
     <%= form.label :performed_at %>
     <%= form.datetime_select :performed_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :perform_count %>
+    <%= form.text_field :perform_count %>
   </div>
 
   <div class="actions">

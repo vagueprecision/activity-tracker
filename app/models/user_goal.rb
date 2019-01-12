@@ -22,25 +22,25 @@ class UserGoal < ApplicationRecord
 
 	#inclusive
 	def starts_at
-		new DateTime(year, 1, 1)
+		Time.new(year, 1, 1)
 	end
 
 	# exclusive
 	def ends_at
-		starts_at.add_year(1)
+		starts_at + 1.year
 	end
 
 	def update_count
-		count = UserActivity.where(user_id: user_id, activity_id: activity_id, performed_at: between(starts_at, ends_at)).count
+		self.count = UserActivity.where(user_id: user_id, activity_id: activity_id, performed_at: starts_at...ends_at).count
 	end
 
-	def increment
-		count += 1
-		save
+	def increment(amount)
+		self.count += amount
+		save!
 	end
 
-	def decrement
-		count -= 1
-		save
+	def decrement(amount)
+		self.count -= amount
+		save!
 	end
 end

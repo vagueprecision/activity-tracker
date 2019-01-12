@@ -11,31 +11,16 @@
     </div>
   <% end %>
 
-  <%= form.collection_select :activity_id, Activity.order(:name),:id,:name, include_blank: true %>
-
-  <div class="field">
-    <%= form.label :activity_name %>
-    <%= form.text_field :activity_name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :activity_unit %>
-    <%= form.text_field :activity_unit %>
-  </div>
+  <%= render partial: 'activity/form', locals: { form: form } %>
 
   <div class="field">
     <%= form.label :year %>
-    <%= form.text_field :year %>
+    <%= form.text_field :year, value: Time.now.year %>
   </div>
 
   <div class="field">
     <%= form.label :target %>
     <%= form.text_field :target %>
-  </div>
-
-  <div class="field">
-    <%= form.label :frequency %>
-    <%= form.text_field :frequency %>
   </div>
 
   <div class="actions">

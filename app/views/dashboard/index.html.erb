@@ -8,9 +8,9 @@
 <ul>
   <% @goals.each do |goal| %>
   <li>
-    <%= goal.count %> / <%= goal.target %>
-    <%= goal.met %>
-    <%= link_to 'Add Progress <plus icon>', new_user_activity_path(goal.activity_id) %>
+    <%= number_with_precision(goal.count, strip_insignificant_zeros: true) %> / <%= number_with_precision(goal.target, strip_insignificant_zeros: true) %>
+    <%= goal.met? %>
+    <%= link_to 'Add Progress <plus icon>', new_user_activity_path(activity_id: goal.activity_id) %>
     <%= link_to 'Edit <pencil icon>', edit_user_goal_path(goal) %>
     <%= link_to 'Remove <x icon>', goal, method: :delete, data: { confirm: 'Are you sure?' } %>
   </li>
@@ -19,7 +19,7 @@
 <ul>
   <% @activities.each do |activity| %>
   <li>
-    <%= activity.name %> - <%= activity.count %><%= link_to 'Add Progress <plus icon>', new_user_activity_path(activity.id) %>
+    <%= activity.name %> - <%= activity.count %><%= link_to 'Add Progress <plus icon>', new_user_activity_path(activity_id: goal.activity_id) %>
   </li>
   <% end %>
 </ul>

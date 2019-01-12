@@ -19,30 +19,22 @@ class UserActivitiesController < ApplicationController
     @user_activity = UserActivity.new(user_activity_params)
     @user_activity.user_id = current_user.id
 
-    if params[:activity_id].nil?
-      @user_activity.activity.build(name: params[:activity_name], unit: params[:activity_unit])
+    if @user_activity.activity_id.nil?
+      @user_activity.activity = Activity.new(activity_params)
     end
 
-    respond_to do |format|
-      if @user_activity.save
-        format.html { redirect_to @user_activity, notice: 'Activity was successfully created.' }
-        format.json { render :show, status: :created, location: @user_activity }
-      else
-        format.html { render :new }
-        format.json { render json: @user_activity.errors, status: :unprocessable_entity }
-      end
+    if @user_activity.save
+      redirect_to root_path, notice: 'Activity was successfully created.'
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @user_activity.update(user_activity_params)
-        format.html { redirect_to @user_activity, notice: 'Activity was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user_activity }
-      else
-        format.html { render :edit }
-        format.json { render json: @user_activity.errors, status: :unprocessable_entity }
-      end
+    if @user_activity.update(user_activity_params)
+      redirect_to root_path, notice: 'Activity was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -55,13 +47,24 @@ class UserActivitiesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user_activity
-      @user_activity = UserActivity.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_activity_params
-      params.require(:user_activity).permit(:performed_at, :activity_id, :activity_name, :activity_unit)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user_activity
+    @user_activity = UserActivity.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def permitted_params
+    params
+      .require(:user_activity)
+      .permit(:performed_at, :perform_count, :activity_id, :activity_name, :activity_unit)
+  end
+
+  def user_activity_params
+    permitted_params.except(:activity_name, :activity_unit)
+  end
+
+  def activity_params
+    { name: permitted_params[:activity_name], unit: permitted_params[:activity_unit] }
+  end
 end

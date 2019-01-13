@@ -10,7 +10,10 @@
   <div class="col-md-4 mb-4">
     <div class="card h-100">
       <div class="card-body">
-        <h2 class="card-title"><%= goal.activity.name + " - " + goal.target + " " + goal.activity.unit + "tbd plural" %></h2>
+        <h2 class="card-title"><%= goal.title %></h2>
+        <div class="progress">
+          <div class="progress-bar <%= goal.progress_class %>" role="progressbar" style="width: <%= goal.percent_complete %>%" aria-valuenow="<%=goal.count %>" aria-valuemin="0" aria-valuemax="<%=goal.target %>"></div>
+        </div>
         <p class="card-text"><%= number_with_precision(goal.count, strip_insignificant_zeros: true) %> / <%= number_with_precision(goal.target, strip_insignificant_zeros: true) %></p>
         <p class="card-text">
           <%= goal.met? %>
@@ -20,19 +23,6 @@
   </div>
 </div>
 <% end %>
-
-<div class="progress">
-  <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
-<div class="progress">
-  <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
-<div class="progress">
-  <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
-<div class="progress">
-  <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
 
 <ul>
   <% @goals.each do |goal| %>

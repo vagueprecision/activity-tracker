@@ -10,6 +10,39 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
  */
+
+ @import 'bootstrap';
+
+body {
+  padding-top: 54px;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
+}
+
+/* tweaks */
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.img-thumbnail {
+  padding: 1px;
+}
+
+.mr-2p {
+  margin-right: 2px;
+}
+
+/* dashboard */
+.modify-icon-container {
+  flex: 0 0 66px;
+}
+
+.add-icon-container {
+  flex: 0 0 16px;
+}

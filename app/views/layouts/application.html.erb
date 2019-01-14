@@ -1,21 +1,37 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
     <title>ActivityTracker</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <%= render partial: 'layouts/nav_header' %>
+    <div class="container">
     <% if current_user.nil? %>
-      <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
+      <%= render partial: 'layouts/landing_page' %>
     <% else %>
-      <%= current_user[:name] %>
-      <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-      <%= yield %>
+      <div class="py-4">
+        <% if params[:notice] %>
+        <div class="alert alert-dark" role="alert">
+          <%= params[:notice] %>
+        </div>
+        <% end %>
+        <%= yield %>
+      </div>
     <% end %>
+    </div>
   </body>
+  <%= render partial: 'layouts/footer' %>
 </html>

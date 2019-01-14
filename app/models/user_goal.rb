@@ -43,4 +43,13 @@ class UserGoal < ApplicationRecord
 		self.count -= amount
 		save!
 	end
+
+  # TODO update to compare where progress should be thru year
+  def on_track?
+	  true
+  end
+
+	def percent_complete
+		count / target * 100
+	end
 end

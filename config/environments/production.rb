@@ -83,6 +83,10 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
+  Devise.setup do |config|
+    config.omniauth :facebook, ENV['FB_APP_ID'], ENV['FB_APP_SECRET'], callback_url: "https://sexy-betch.herokuapp.com/users/auth/facebook/callback"
+  end
+
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter

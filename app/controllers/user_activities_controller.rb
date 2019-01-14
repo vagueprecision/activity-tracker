@@ -24,7 +24,7 @@ class UserActivitiesController < ApplicationController
     end
 
     if @user_activity.save
-      redirect_to root_path, notice: 'Activity was successfully created.'
+      redirect_to dashboard_index_path, notice: 'Activity was successfully created.'
     else
       render :new
     end

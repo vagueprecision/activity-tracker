@@ -67,4 +67,8 @@ Rails.application.configure do
       ENV[key.to_s] = value
     end if File.exists?(env_file)
   end
+
+  Devise.setup do |config|
+    config.omniauth :facebook, ENV['FB_APP_ID'], ENV['FB_APP_SECRET'], callback_url: "http://localhost:3000/users/auth/facebook/callback"
+  end
 end

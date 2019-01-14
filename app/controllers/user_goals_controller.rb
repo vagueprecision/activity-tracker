@@ -24,7 +24,7 @@ class UserGoalsController < ApplicationController
     end
 
     if @user_goal.save
-      redirect_to root_path, notice: 'Goal was successfully created.'
+      redirect_to dashboard_index_path, notice: 'Goal was successfully created.'
     else
       render :new
     end
@@ -32,7 +32,7 @@ class UserGoalsController < ApplicationController
 
   def update
     if @user_goal.update(user_goal_params)
-      redirect_to root_path, notice: 'Goal was successfully updated.'
+      redirect_to dashboard_index_path, notice: 'Goal was successfully updated.'
     else
       render :edit
     end
@@ -40,7 +40,7 @@ class UserGoalsController < ApplicationController
 
   def destroy
     @user_goal.destroy
-    redirect_to root_path notice: 'Goal was successfully destroyed.'
+    redirect_to dashboard_index_path notice: 'Goal was successfully destroyed.'
   end
 
   private

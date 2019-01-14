@@ -1,5 +1,4 @@
 class DashboardController < ApplicationController
-
   def index
     current_date = Time.now
     goals = UserGoal.includes(:activity).where(user: current_user, year: current_date.year)

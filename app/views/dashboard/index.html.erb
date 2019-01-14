@@ -1,40 +1,38 @@
 <p id="notice"><%= notice %></p>
 
-<h1>User Goals</h1>
-
-<%= link_to 'New Activity', new_user_activity_path %>
-<%= link_to 'New Goal', new_user_goal_path %>
-
-<% @goals.each do |goal| %>
+<h1><%= Time.now.year %>'s Goals</h1>
+<% if @goals.present? %>
 <div class="row">
-  <div class="col-md-4 mb-4">
-    <div class="card h-100">
+<% end %>
+<% @goals.each_with_index do |goal, index| %>
+<% if index % 2 == 0 %>
+</div>
+<div class="row">
+<% end %>
+  <div class="col-w-50 mt-1">
+    <div class="card mx-1">
       <div class="card-body">
         <h2 class="card-title"><%= goal.title %></h2>
         <div class="progress">
-          <div class="progress-bar <%= goal.progress_class %>" role="progressbar" style="width: <%= goal.percent_complete %>%" aria-valuenow="<%=goal.count %>" aria-valuemin="0" aria-valuemax="<%=goal.target %>"></div>
+          <div class="progress-bar <%= goal.progress_class %>" role="progressbar" style="width: <%= goal.display_percent_complete %>%" aria-valuenow="<%=goal.display_count %>" aria-valuemin="0" aria-valuemax="<%=goal.display_target %>"></div>
         </div>
-        <p class="card-text"><%= number_with_precision(goal.count, strip_insignificant_zeros: true) %> / <%= number_with_precision(goal.target, strip_insignificant_zeros: true) %></p>
+        <p class="card-text"><%= goal.progress_description %></p>
         <p class="card-text">
           <%= goal.met? %>
+        </p>
+        <p>
+          <%= link_to image_tag("/images/plus.png"), new_user_activity_path(activity_id: goal.activity_id) %>
+          <%= link_to image_tag("/images/edit_32.png"), edit_user_goal_path(goal) %>
+          <%= link_to image_tag("/images/del_med.png"), goal, method: :delete, data: { confirm: 'Are you sure?' } %>
         </p>
       </div>
     </div>
   </div>
+<% end %>
+<% if @goals.present? %>
 </div>
 <% end %>
 
-<ul>
-  <% @goals.each do |goal| %>
-  <li>
-
-
-    <%= link_to 'Add Progress <plus icon>', new_user_activity_path(activity_id: goal.activity_id) %>
-    <%= link_to 'Edit <pencil icon>', edit_user_goal_path(goal) %>
-    <%= link_to 'Remove <x icon>', goal, method: :delete, data: { confirm: 'Are you sure?' } %>
-  </li>
-  <% end %>
-</ul>
 <ul>
   <% @activities.each do |activity| %>
   <li>

@@ -44,29 +44,12 @@ class UserGoal < ApplicationRecord
 		save!
 	end
 
-	# presenter logic
-	def progress_class
-		return 'bg-success' if met? || on_track?
-		# how_far_behind < 2 weeks ? 'bg-warning' : 'bg-danger'
-		'bg-danger'
-	end
-
-	# update to compare where progress should be thru year
-	def on_track?
-		true
-	end
-
-	include ActionView::Helpers::NumberHelper
+  # TODO update to compare where progress should be thru year
+  def on_track?
+	  true
+  end
 
 	def percent_complete
-		number_with_precision(count / target * 100, precision: 0, strip_insignificant_zeros: true)
-	end
-
-	def title
-		"#{activity.name} - #{target} #{display_target_unit}"
-	end
-
-	def display_target_unit
-		activity.unit.pluralize(target)
+		count / target * 100
 	end
 end

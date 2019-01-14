@@ -9,7 +9,7 @@ class UserActivity < ApplicationRecord
   before_update :update_goals
 
 	scope :current_year, -> { where('performed_at > ?', Time.now.beginning_of_year) } #utc or local?
-	scope :non_goal, -> { joins("LEFT JOIN user_goals ON user_activities.id = user_goals.activity_id and user_activities.user_id = user_goals.user_id").where(user_goals: {id: nil}) }
+	scope :exclude_goal, -> { joins("LEFT JOIN user_goals ON user_activities.id = user_goals.activity_id and user_activities.user_id = user_goals.user_id").where(user_goals: {id: nil}) }
   scope :group_by_activity, -> { includes(:activity).group(:activity_id) }
 
 	def increment_goals

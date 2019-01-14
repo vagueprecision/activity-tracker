@@ -20,7 +20,7 @@
 		</li>
 		<% else %>
 		<li class="nav-item">
-			<%= image_tag current_user[:image], size: '32x32' %>
+			<%= image_tag current_user[:image], size: '32x32', class: "img-thumbnail" %>
 			<p class="navbar-text mb-0 px-1 text-white">
 				<%= current_user[:name] %>
 			</p>

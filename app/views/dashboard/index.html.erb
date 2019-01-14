@@ -1,107 +1,84 @@
-<p id="notice"><%= notice %></p>
-
 <h1><%= Time.now.year %>'s Goals</h1>
-<% if @goals.present? %>
 <div class="row">
-<% end %>
-<% @goals.each_with_index do |goal, index| %>
-<% if index % 2 == 0 %>
-</div>
-<div class="row">
-<% end %>
+<% @goals.each do |goal| %>
   <div class="col-w-50 mt-1">
-    <div class="card mx-1">
+    <div class="card mr-1">
+      <div class="card-header">
+        <div class="row no-gutters justify-content-between">
+          <div class="col">
+            <h2 class="mb-0"><%= goal.title %></h2>
+          </div>
+          <div class="col modify-icon-container">
+            <%= link_to image_tag(image_path('edit_32.png'), size:'32x32', class: 'mr-2p'), edit_user_goal_path(goal) %><%= link_to image_tag(image_path('del_32.png'), size:'32x32'), goal, data: { method: :delete, confirm: 'Are you sure?' } %>
+          </div>
+        </div>
+      </div>
       <div class="card-body">
-        <h2 class="card-title"><%= goal.title %></h2>
         <div class="progress">
           <div class="progress-bar <%= goal.progress_class %>" role="progressbar" style="width: <%= goal.display_percent_complete %>%" aria-valuenow="<%=goal.display_count %>" aria-valuemin="0" aria-valuemax="<%=goal.display_target %>"></div>
         </div>
-        <p class="card-text"><%= goal.progress_description %></p>
-        <p class="card-text">
-          <%= goal.met? %>
-        </p>
-        <p>
-          <%= link_to image_tag("/images/plus.png"), new_user_activity_path(activity_id: goal.activity_id) %>
-          <%= link_to image_tag("/images/edit_32.png"), edit_user_goal_path(goal) %>
-          <%= link_to image_tag("/images/del_med.png"), goal, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </p>
+        <div class="row no-gutters justify-content-between">
+          <div class="col card-text <%= goal.progress_color_class %>">
+            <%= goal.progress_description %>
+          </div>
+          <div class="col add-icon-container">
+            <%= link_to image_tag(image_path('plus.png'), size:'16x16', class:'mt-1 float-right'), new_user_activity_path(activity_id: goal.activity_id) %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 <% end %>
-<% if @goals.present? %>
+</div>
+<% if @goals.empty? %>
+<div class="col card-text">
+  You don't have any goals yet...why don't you add one?
 </div>
 <% end %>
 
-<ul>
-  <% @activities.each do |activity| %>
-  <li>
-    <%= activity.name %> - <%= activity.count %><%= link_to 'Add Progress <plus icon>', new_user_activity_path(activity_id: goal.activity_id) %>
-  </li>
-  <% end %>
-</ul>
-
-
-
-<!-- Heading Row -->
-<div class="row my-4">
-  <div class="col-lg-8">
-    <img class="img-fluid rounded" src="http://placehold.it/900x400" alt="">
-  </div>
-  <!-- /.col-lg-8 -->
-  <div class="col-lg-4">
-    <h1>Business Name or Tagline</h1>
-    <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
-    <a class="btn btn-primary btn-lg" href="#">Call to Action!</a>
-  </div>
-  <!-- /.col-md-4 -->
-</div>
-<!-- /.row -->
-
-<!-- Call to Action Well -->
-<div class="card text-white bg-secondary my-4 text-center">
-  <div class="card-body">
-    <p class="text-white m-0">This call to action card is a great place to showcase some important information or display a clever tagline!</p>
+<!-- Destroy Goal Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this goal
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- Content Row -->
+
+<h1 class="pt-4"><%= Time.now.year %>'s Activities</h1>
 <div class="row">
-  <div class="col-md-4 mb-4">
-    <div class="card h-100">
-      <div class="card-body">
-        <h2 class="card-title">Card One</h2>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
-      </div>
-      <div class="card-footer">
-        <a href="#" class="btn btn-primary">More Info</a>
-      </div>
-    </div>
-  </div>
-  <!-- /.col-md-4 -->
-  <div class="col-md-4 mb-4">
-    <div class="card h-100">
-      <div class="card-body">
-        <h2 class="card-title">Card Two</h2>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod tenetur ex natus at dolorem enim! Nesciunt pariatur voluptatem sunt quam eaque, vel, non in id dolore voluptates quos eligendi labore.</p>
-      </div>
-      <div class="card-footer">
-        <a href="#" class="btn btn-primary">More Info</a>
+<% @activities.each do |activity| %>
+  <div class="col-w-50 mt-1">
+    <div class="card mr-1">
+      <div class="card-header">
+        <div class="row no-gutters justify-content-between">
+          <div class="col">
+            <h2 class="mb-0"><%= activity.title %></h2>
+          </div>
+          <div class="col modify-icon-container">
+            <%= link_to image_tag(image_path('plus.png'), size:'32x32', class: 'mr-2p'), new_user_activity_path(activity_id: activity.id) %><%= link_to image_tag(image_path('list_32.png'), size:'32x32'), user_activities_path(activity_id: activity.id) %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <!-- /.col-md-4 -->
-  <div class="col-md-4 mb-4">
-    <div class="card h-100">
-      <div class="card-body">
-        <h2 class="card-title">Card Three</h2>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
-      </div>
-      <div class="card-footer">
-        <a href="#" class="btn btn-primary">More Info</a>
-      </div>
-    </div>
-  </div>
-  <!-- /.col-md-4 -->
+<% end %>
 </div>
-<!-- /.row -->
+<% if @activities.empty? %>
+<div class="col card-text">
+  You don't have any activities yet...why don't you add one?
+</div>
+<% end %>

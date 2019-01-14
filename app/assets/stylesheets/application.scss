@@ -23,3 +23,26 @@ body {
     padding-top: 56px;
   }
 }
+
+/* tweaks */
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.img-thumbnail {
+  padding: 1px;
+}
+
+.mr-2p {
+  margin-right: 2px;
+}
+
+/* dashboard */
+.modify-icon-container {
+  flex: 0 0 66px;
+}
+
+.add-icon-container {
+  flex: 0 0 16px;
+}

@@ -13,6 +13,11 @@ class GoalPresenter < BasePresenter
     "#{display_count} / #{display_target_with_unit}"
   end
 
+  def progress_color_class
+    met? ? 'text-success' : 'text-danger'
+    # text-warning
+  end
+
   def display_percent_complete
 	  h.number_with_precision(percent_complete, precision: 0, strip_insignificant_zeros: true)
   end

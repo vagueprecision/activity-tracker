@@ -15,7 +15,7 @@ class GoalPresenter < BasePresenter
 
   def activity_list_link
     if display_count.positive?
-      h.link_to('List', user_activities_path(year, activity_id))
+      h.link_to('List', goals_activities_path(year, activity_id))
     end
   end
 

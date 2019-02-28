@@ -83,3 +83,7 @@
   You don't have any activities yet...why don't you add one?
 </div>
 <% end %>
+
+<div style="display:none">
+<%= Rails.application.routes.named_routes.helpers.map(&:to_s) %>
+</div>

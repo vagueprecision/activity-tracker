@@ -13,11 +13,10 @@ class GoalPresenter < BasePresenter
     "#{display_count} / #{display_target_with_unit}"
   end
 
-  def activity_list_link
+  def activity_list_link(url)
     if count.positive?
-      h.link_to('List', goal_activities_path(self)) #(year, activity_id))
+      h.link_to('List', url)
     end
-    'LIST'
   end
 
   def progress_color_class

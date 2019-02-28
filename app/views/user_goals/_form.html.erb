@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <%= render partial: 'activity/form', locals: { form: form } %>
+  <%= render partial: 'activity/form', locals: { form: form, activity_id: user_goal&.activity_id } %>
 
   <div class="field">
     <%= form.label :year %>

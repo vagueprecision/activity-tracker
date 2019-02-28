@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <%= render partial: 'activity/form', locals: { form: form, activity_id: params[:activity_id] } %>
+  <%= render partial: 'activity/form', locals: { form: form, activity_id: user_activity&.activity_id || params[:activity_id] } %>
 
   <div class="field">
     <%= form.label :performed_at %>

@@ -1,11 +1,8 @@
 class UserActivitiesController < ApplicationController
-  before_action :set_user_goal, only: [:show, :edit, :update, :destroy]
+  before_action :set_user_activity, only: [:edit, :update, :destroy]
 
   def index
-    @user_activities = UserActivities.all
-  end
-
-  def show
+    @user_activities = UserActivities.where(activity_id: params[:activity_id], year: params[:year])
   end
 
   def new
@@ -57,7 +54,7 @@ class UserActivitiesController < ApplicationController
   def permitted_params
     params
       .require(:user_activity)
-      .permit(:performed_at, :perform_count, :activity_id, :activity_name, :activity_unit)
+      .permit(:performed_at, :perform_count, :activity_id, :activity_name, :activity_unit, :activity_details)
   end
 
   def user_activity_params
@@ -65,6 +62,6 @@ class UserActivitiesController < ApplicationController
   end
 
   def activity_params
-    { name: permitted_params[:activity_name], unit: permitted_params[:activity_unit] }
+    { name: permitted_params[:activity_name], unit: permitted_params[:activity_unit], details: permitted_params[:activity_details] }
   end
 end

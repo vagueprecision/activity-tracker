@@ -18,7 +18,7 @@
         <td><%= user_activity.performed_at %></td>
         <td><%= user_activity.perform_count %></td>
         <td><%= user_activity.details %></td>
-        <td><%= link_to image_tag(image_path('edit_32.png'), size:'32x32', class: 'mr-2p'), edit_activity_path(user_activity) %><%= link_to image_tag(image_path('del_32.png'), size:'32x32'), user_activity, data: { method: :delete, confirm: 'Are you sure?' } %></td>
+        <td><%= link_to image_tag(image_path('edit_32.png'), size:'32x32', class: 'mr-2p'), edit_activity_path(user_activity) %><%= link_to image_tag(image_path('del_32.png'), size:'32x32'), activity_path(user_activity), data: { method: :delete, confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

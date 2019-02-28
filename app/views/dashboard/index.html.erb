@@ -9,7 +9,7 @@
             <h2 class="mb-0"><%= goal.title %></h2>
           </div>
           <div class="col modify-icon-container">
-            <%= link_to image_tag(image_path('edit_32.png'), size:'32x32', class: 'mr-2p'), edit_goal_path(goal) %><%= link_to image_tag(image_path('del_32.png'), size:'32x32'), goal, data: { method: :delete, confirm: 'Are you sure?' } %>
+            <%= link_to image_tag(image_path('edit_32.png'), size:'32x32', class: 'mr-2p'), edit_goal_path(goal) %><%= link_to image_tag(image_path('del_32.png'), size:'32x32'), goal_path(goal), data: { method: :delete, confirm: 'Are you sure?' } %>
           </div>
         </div>
       </div>

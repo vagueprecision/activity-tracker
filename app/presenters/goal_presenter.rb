@@ -10,8 +10,13 @@ class GoalPresenter < BasePresenter
   end
 
   def progress_description
-    display_ct = display_count.zero? ? display_count : h.link_to user_activities_path(year: year, activity_id: activity_id)
     "#{display_count} / #{display_target_with_unit}"
+  end
+
+  def activity_list_link
+    if display_count.positive?
+      h.link_to('List', user_activities_path(year, activity_id))
+    end
   end
 
   def progress_color_class

@@ -13,7 +13,7 @@ class GoalPresenter < BasePresenter
     "#{display_count_with_link(url)} / #{display_target_with_unit}"
   end
 
-  def display_count_with_link
+  def display_count_with_link(url)
     count.positive? ? h.link_to(display_count, url) : display_count
   end
 

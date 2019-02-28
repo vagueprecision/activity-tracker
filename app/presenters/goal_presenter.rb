@@ -14,9 +14,9 @@ class GoalPresenter < BasePresenter
   end
 
   def activity_list_link
-    #if count.positive?
-    #  h.link_to('List', goals_activities_path(year, activity_id))
-    #end
+    if count.positive?
+      h.link_to('List', goal_activities_path(year, activity_id))
+    end
     'LIST'
   end
 

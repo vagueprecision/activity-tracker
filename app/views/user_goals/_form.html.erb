@@ -1,4 +1,4 @@
-<%= form_with(model: user_goal, local: true) do |form| %>
+<%= form_with(model: user_goal, local: true, url: goal_path) do |form| %>
   <% if user_goal.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(user_goal.errors.count, "error") %> prohibited this goal from being saved:</h2>

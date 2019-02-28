@@ -1,4 +1,4 @@
-<%= form_with(model: user_activity, local: true) do |form| %>
+<%= form_with(model: user_activity, local: true, url: activity_path) do |form| %>
   <% if user_activity.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(user_activity.errors.count, "error") %> prohibited this user_activity from being saved:</h2>

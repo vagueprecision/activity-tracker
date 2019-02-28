@@ -10,7 +10,7 @@ class GoalPresenter < BasePresenter
   end
 
   def progress_description(url)
-    "#{display_count_with_link(url)} / #{display_target_with_unit}"
+    display_count_with_link(url) + " / #{display_target_with_unit}"
   end
 
   def display_count_with_link(url)

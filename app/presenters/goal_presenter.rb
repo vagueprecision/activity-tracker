@@ -9,12 +9,14 @@ class GoalPresenter < BasePresenter
 	  'bg-danger'
   end
 
-  def progress_description(url)
-    display_count_with_link(url) + " / #{display_target_with_unit}"
+  def progress_description
+    "#{display_count} / #{display_target_with_unit}"
   end
 
-  def display_count_with_link(url)
-    count.positive? ? h.link_to(display_count, url) : display_count
+  def activity_list(url)
+    if count.positive?
+      h.link_to('List', url)
+    end
   end
 
   def progress_color_class

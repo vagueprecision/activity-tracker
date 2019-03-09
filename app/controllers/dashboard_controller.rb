@@ -3,10 +3,9 @@ class DashboardController < ApplicationController
     current_date = Time.now
     goals = UserGoal.includes(:activity).where(user: current_user, year: current_date.year)
 
-    activities = Activity.where.not(id: goals.map(&:activity_id))
-      .joins(:user_activities).where(user_activities: { user_id: current_user.id })
-      .where('user_activities.performed_at > ?', current_date.beginning_of_year)
-      .group(:id, :name).count
+    activities = Activity.exclude_goals(goals).joins(:user_activities)
+      .merge(UserActivity.current_year.by_user(current_user.id))
+      .group(:id, :name, :unit).sum(:perform_count)
 
     @goals = goals.map { |g| GoalPresenter.new(g, view_context) }
 

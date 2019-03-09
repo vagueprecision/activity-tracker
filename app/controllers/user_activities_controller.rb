@@ -2,14 +2,25 @@ class UserActivitiesController < ApplicationController
   before_action :set_user_activity, only: [:edit, :update, :destroy]
 
   def index
-    @user_activities = UserActivities.where(activity_id: params[:activity_id], year: params[:year])
+    @user_activities = UserActivity.where(activity_id: params[:activity_id]).in_year(params[:year])
+    @activity = Activity.find(params[:activity_id])
+
+    if @activity
+      @title = @activity.name
+    else
+      @title = 'Activities'
+    end
+
+    @title = @title.prepend(params[:year] + '\'s ') if params[:year]
   end
 
   def new
+    @url = activities_path
     @user_activity = UserActivity.new
   end
 
   def edit
+    @url = activity_path(params[:id])
   end
 
   def create
@@ -54,7 +65,7 @@ class UserActivitiesController < ApplicationController
   def permitted_params
     params
       .require(:user_activity)
-      .permit(:performed_at, :perform_count, :activity_id, :activity_name, :activity_unit, :activity_details)
+      .permit(:performed_at, :perform_count, :details, :activity_id, :activity_name, :activity_unit)
   end
 
   def user_activity_params
@@ -62,6 +73,6 @@ class UserActivitiesController < ApplicationController
   end
 
   def activity_params
-    { name: permitted_params[:activity_name], unit: permitted_params[:activity_unit], details: permitted_params[:activity_details] }
+    { name: permitted_params[:activity_name], unit: permitted_params[:activity_unit] }
   end
 end

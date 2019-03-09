@@ -1,12 +1,16 @@
-<div class="field">
-	Activity<br/>
-	Existing:
-	<%= form.collection_select :activity_id, Activity.order(:name),:id,:name, include_blank: true, selected: params[:activity_id] %>
-	or New:
-	<%= form.text_field :activity_name %>
-</div>
+<% content_for :head do %>
+<%= javascript_include_tag 'activity_form' %>
+<% end %>
 
 <div class="field">
-	<%= form.label :activity_unit %>
-	<%= form.text_field :activity_unit, value: "time" %>
+	<%= form.label :activity_id, 'Activity' %>
+	<%= form.collection_select :activity_id, Activity.order(:name), :id, :name, {include_blank: '<NEW>', selected: activity_id}, {class: 'activitySelect'} %>
+
+	<div class="field newActivity">
+		<%= form.label :activity_name, 'Name' %>
+		<%= form.text_field :activity_name %>
+		<%= form.label :activity_unit, 'Unit' %>
+		<%= form.text_field :activity_unit, value: "time" %>
+	</div>
 </div>
+<hr/>

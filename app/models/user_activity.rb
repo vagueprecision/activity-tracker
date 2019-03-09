@@ -8,9 +8,11 @@ class UserActivity < ApplicationRecord
   before_destroy :decrement_goals
   before_update :update_goals
 
-	scope :current_year, -> { where('performed_at > ?', Time.now.beginning_of_year) } #utc or local?
+	scope :current_year, -> { in_year(Time.now.year) } #utc or local?
+  scope :in_year, ->(year) { where('extract(year from performed_at) = ?', year) } #utc or local?
 	# scope :exclude_goal, -> { joins("LEFT JOIN user_goals ON user_activities.id = user_goals.activity_id and user_activities.user_id = user_goals.user_id").where(user_goals: {id: nil}) }
   scope :group_by_activity, -> { group(:activity_id).includes(:activity) }
+  scope :by_user, ->(user_id) { where(user_id: user_id) }
 
 	def increment_goals
 		related_goals(performed_at).each{ |g| g.increment(perform_count) }

@@ -3,6 +3,7 @@ class ActivityWithCountPresenter < BasePresenter
     @view = view
     @id = activity_with_count.first.first
     @name = activity_with_count.first.second
+    @unit = activity_with_count.first.third
     @count = activity_with_count.second
   end
 
@@ -15,10 +16,16 @@ class ActivityWithCountPresenter < BasePresenter
   end
 
   def count
-	  @count
+    h.number_with_precision(@count, precision: 0, strip_insignificant_zeros: true)
+  end
+
+  def unit
+    @unit
   end
 
   def title
-    "#{name} - #{count}"
+    "#{name} - #{h.pluralize(count, unit)}"
   end
+
+
 end

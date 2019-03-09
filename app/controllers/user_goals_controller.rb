@@ -9,10 +9,12 @@ class UserGoalsController < ApplicationController
   end
 
   def new
+    @url = goals_path
     @user_goal = UserGoal.new
   end
 
   def edit
+    @url = goal_path(params[:id])
   end
 
   def create

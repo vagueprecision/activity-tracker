@@ -1,4 +1,4 @@
-<%= form_with(model: user_activity, local: true, url: activity_path) do |form| %>
+<%= form_with(model: user_activity, local: true, url: @url) do |form| %>
   <% if user_activity.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(user_activity.errors.count, "error") %> prohibited this user_activity from being saved:</h2>
@@ -10,8 +10,7 @@
       </ul>
     </div>
   <% end %>
-
-  <%= render partial: 'activity/form', locals: { form: form, activity_id: user_activity&.activity_id || params[:activity_id] } %>
+  <%= render partial: 'activity/form', locals: { form: form, activity_id: user_activity.activity&.id || params[:activity_id] } %>
 
   <div class="field">
     <%= form.label :performed_at %>

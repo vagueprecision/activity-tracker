@@ -66,10 +66,10 @@
       <div class="card-header">
         <div class="row no-gutters justify-content-between">
           <div class="col">
-            <h2 class="mb-0"><%= activity.title %></h2>
+            <h2 class="mb-0 mr-1"><%= activity.title %></h2>
           </div>
           <div class="col modify-icon-container">
-            <%= link_to image_tag(image_path('plus.png'), size:'32x32', class: 'mr-2p'), new_user_activity_path(activity_id: activity.id) %><%= link_to image_tag(image_path('list_32.png'), size:'32x32'), user_activities_path(activity_id: activity.id) %>
+            <%= link_to image_tag(image_path('plus.png'), size:'32x32', class: 'mr-2p'), new_activity_path(activity_id: activity.id) %><%= link_to image_tag(image_path('list_32.png'), size:'32x32'), activities_path(activity_id: activity.id, year: Time.now.year) %>
           </div>
         </div>
       </div>

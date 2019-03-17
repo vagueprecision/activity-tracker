@@ -15,7 +15,7 @@ class GoalPresenter < BasePresenter
 
   def activity_list(url)
     if count.positive?
-      h.link_to('List', url)
+      h.link_to(h.image_tag(h.image_path('list_32.png'), size:'16x16'), url)
     end
   end
 

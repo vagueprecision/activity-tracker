@@ -19,7 +19,8 @@
         </div>
         <div class="row no-gutters justify-content-between">
           <div class="col card-text <%= goal.progress_color_class %>">
-            <%= goal.progress_description %><%= goal.activity_list(goal_activities_path(goal, activity_id: goal.activity_id, year: goal.year)) %>
+            <%= goal.progress_description %>
+            <%= goal.activity_list(goal_activities_path(goal)) %>
           </div>
           <div class="col add-icon-container">
             <%= link_to image_tag(image_path('plus.png'), size:'16x16', class:'mt-1 float-right'), new_activity_path(activity_id: goal.activity_id) %>

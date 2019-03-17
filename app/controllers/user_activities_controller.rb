@@ -2,8 +2,17 @@ class UserActivitiesController < ApplicationController
   before_action :set_user_activity, only: [:edit, :update, :destroy]
 
   def index
-    @user_activities = UserActivity.where(activity_id: params[:activity_id]).in_year(params[:year])
-    @activity = Activity.find(params[:activity_id])
+    if params[:goal_id]
+      goal = UserGoal.find(params[:goal_id])
+      year = goal.year
+      activity_id = goal.activity_id
+    else
+      activity_id = params[:activity_id]
+      year = params[:year]
+    end
+
+    @user_activities = UserActivity.where(activity_id: activity_id).in_year(year)
+    @activity = Activity.find(activity_id)
 
     if @activity
       @title = @activity.name
@@ -11,7 +20,7 @@ class UserActivitiesController < ApplicationController
       @title = 'Activities'
     end
 
-    @title = @title.prepend(params[:year] + '\'s ') if params[:year]
+    @title = @title.prepend(year.to_s + '\'s ') if year
   end
 
   def new
@@ -20,6 +29,7 @@ class UserActivitiesController < ApplicationController
   end
 
   def edit
+    flash[:referrer] = request.referer
     @url = activity_path(params[:id])
   end
 
@@ -40,7 +50,8 @@ class UserActivitiesController < ApplicationController
 
   def update
     if @user_activity.update(user_activity_params)
-      redirect_to root_path, notice: 'Activity was successfully updated.'
+      flash[:notice] = 'Activity was successfully updated.'
+      redirect_to flash[:referrer] || dashboard_index_path
     else
       render :edit
     end
@@ -48,10 +59,8 @@ class UserActivitiesController < ApplicationController
 
   def destroy
     @user_activity.destroy
-    respond_to do |format|
-      format.html { redirect_to user_activities_url, notice: 'Activity was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    flash[:notice] = 'Activity was successfully destroyed.'
+    redirect_back fallback_location: dashboard_index_path
   end
 
   private

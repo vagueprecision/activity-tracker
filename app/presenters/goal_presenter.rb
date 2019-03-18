@@ -29,11 +29,11 @@ class GoalPresenter < BasePresenter
   end
 
   def display_count
-    h.number_with_precision(count, precision: 0, strip_insignificant_zeros: true)
+    h.number_with_precision(count, precision: 2, strip_insignificant_zeros: true)
   end
 
   def display_target
-    h.number_with_precision(target, precision: 0, strip_insignificant_zeros: true)
+    h.number_with_precision(target, precision: 2, strip_insignificant_zeros: true)
   end
 
   def display_target_with_unit

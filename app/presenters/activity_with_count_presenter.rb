@@ -16,7 +16,7 @@ class ActivityWithCountPresenter < BasePresenter
   end
 
   def count
-    h.number_with_precision(@count, precision: 0, strip_insignificant_zeros: true)
+    h.number_with_precision(@count, precision: 2, strip_insignificant_zeros: true)
   end
 
   def unit

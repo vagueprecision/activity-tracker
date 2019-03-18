@@ -11,7 +11,7 @@ class UserActivitiesController < ApplicationController
       year = params[:year]
     end
 
-    @user_activities = UserActivity.where(activity_id: activity_id).in_year(year)
+    @user_activities = UserActivity.where(activity_id: activity_id).in_year(year).order(performed_at: :desc)
     @activity = Activity.find(activity_id)
 
     if @activity
@@ -20,7 +20,7 @@ class UserActivitiesController < ApplicationController
       @title = 'Activities'
     end
 
-    @title = @title.prepend(year.to_s + '\'s ') if year
+    @title = @title.prepend(year.to_s + ' - ') if year
   end
 
   def new

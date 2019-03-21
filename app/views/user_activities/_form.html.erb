@@ -1,3 +1,7 @@
+<% content_for :head do %>
+<%= javascript_include_tag 'user_activity_form' %>
+<% end %>
+
 <%= form_with(model: user_activity, local: true, url: @url) do |form| %>
   <% if user_activity.errors.any? %>
     <div id="error_explanation">
@@ -14,33 +18,13 @@
 
   <div class="field">
     <%= form.label :performed_at %>
-    <%= form.datetime_select :performed_at, default: Time.now.midday, :order => [:month, :day, :year, :hour, :minute], ampm: true, with_css_classes: true %>
-    <%= form.check_box :show_time %>
+    <%= form.datetime_select :performed_at, default: Time.now.midday, :order => [:month, :day, :year, :hour, :minute], ampm: true, with_css_classes: true, time_separator: '', datetime_separator: '' %>
   </div>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $hour = $('.hour').remove()
-      $min = $('.minute').remove();
-      $timeDiv = new('div').class('timeDiv')
-      $timeDiv.appendTo('.performed_at')
 
-      $('.showTime').bind('change', function () {
-        if ($(this).checked)
-          $showTime.show();
-        else
-          $showTime.hide();
-      });
-
-      $('.showTime').trigger('change');
-     });
-
-    var timeDiv = document.createElement("div");
-    $('')
-    var textnode = document.createTextNode("Water");         // Create a text node
-    node.appendChild(textnode);                              // Append the text to <li>
-    document.getElementById("myList").appendChild(node);
-
-  </script>
+  <div class="field showTimeDiv">
+    <%= form.check_box :show_time, class: 'showTime' %>
+    <%= form.label :show_time, "At a specific time?" %>
+  </div>
 
   <div class="field">
     <%= form.label :perform_count %>

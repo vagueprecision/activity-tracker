@@ -3,12 +3,6 @@ class GoalPresenter < BasePresenter
 	  activity.name
   end
 
-  def progress_class
-	  return 'bg-success' if met? || on_track?
-	  # how_far_behind < 2 weeks ? 'bg-warning' : 'bg-danger'
-	  'bg-danger'
-  end
-
   def progress_description
     "#{display_count} / #{display_target_with_unit}"
   end
@@ -19,9 +13,16 @@ class GoalPresenter < BasePresenter
     end
   end
 
+  def progress_class
+    return 'bg-success' if current_progress == UserGoal::COMPLETE || current_progress == UserGoal::ON_TRACK
+    return 'bg-warning' if UserGoal::SLIGHTLY_BEHIND
+	  'bg-danger'
+  end
+
   def progress_color_class
-    met? ? 'text-success' : 'text-danger'
-    # text-warning
+    return 'text-success' if current_progress == UserGoal::COMPLETE || current_progress == UserGoal::ON_TRACK
+    return 'text-warning' if UserGoal::SLIGHTLY_BEHIND
+    'text-danger'
   end
 
   def display_percent_complete

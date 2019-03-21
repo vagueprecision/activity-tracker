@@ -74,7 +74,7 @@ class UserActivitiesController < ApplicationController
   def permitted_params
     params
       .require(:user_activity)
-      .permit(:performed_at, :perform_count, :details, :activity_id, :activity_name, :activity_unit)
+      .permit(:performed_at, :perform_count, :details, :activity_id, :activity_name, :activity_unit, :show_time)
   end
 
   def user_activity_params

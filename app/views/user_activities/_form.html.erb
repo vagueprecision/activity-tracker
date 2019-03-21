@@ -22,7 +22,7 @@
   </div>
 
   <div class="field showTimeDiv">
-    <%= form.check_box :show_time, class: 'showTime' %>
+    <%= form.check_box :show_time, class: 'showTime', checked: user_activity.show_time %>
     <%= form.label :show_time, "At a specific time?" %>
   </div>
 

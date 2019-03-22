@@ -15,13 +15,13 @@ class GoalPresenter < BasePresenter
 
   def progress_class
     return 'bg-success' if current_progress == UserGoal::COMPLETE || current_progress == UserGoal::ON_TRACK
-    return 'bg-warning' if UserGoal::SLIGHTLY_BEHIND
+    return 'bg-warning' if current_progress == UserGoal::SLIGHTLY_BEHIND
 	  'bg-danger'
   end
 
   def progress_color_class
     return 'text-success' if current_progress == UserGoal::COMPLETE || current_progress == UserGoal::ON_TRACK
-    return 'text-warning' if UserGoal::SLIGHTLY_BEHIND
+    return 'text-warning' if current_progress == UserGoal::SLIGHTLY_BEHIND
     'text-danger'
   end
 

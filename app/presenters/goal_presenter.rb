@@ -1,4 +1,9 @@
 class GoalPresenter < BasePresenter
+  def initialize(model, view, most_recent_date)
+    @most_recent_date = most_recent_date
+    super(model, view)
+  end
+
   def title
 	  activity.name
   end
@@ -39,5 +44,9 @@ class GoalPresenter < BasePresenter
 
   def display_target_with_unit
 	  h.pluralize(display_target, activity.unit)
+  end
+
+  def display_date
+    'as of: ' + @most_recent_date.strftime('%-m/%-d').to_s if @most_recent_date
   end
 end

@@ -1,9 +1,14 @@
-<header class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-	<div class="navbar-nav-scroll">
-		<ul class="navbar-nav bd-navbar-nav flex-row">
-			<li class="nav-item active">
-				<%= link_to 'Dashboard', dashboard_index_path, { class:"nav-link" } %>
-			</li>
+<% if current_user.present? %>
+<header class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+	<a href="<%= dashboard_index_path %>" class="navbar-brand">
+		Dashboard
+		<!-- <span class="glyphicon glyphicon-home" aria-hidden="true"></span> -->
+	</a>
+	<div class="collapse navbar-collapse" id="navbarContent">
+		<ul class="navbar-nav mr-auto">
 			<li class="nav-item">
 				<%= link_to 'New Activity', new_activity_path, { class:"nav-link" } %>
 			</li>
@@ -11,23 +16,23 @@
 				<%= link_to 'New Goal', new_goal_path, { class:"nav-link" } %>
 			</li>
 		</ul>
+		<ul class="navbar-nav flex-row ml-md-auto">
+			<li class="nav-item d-none d-md-inline-block">
+				<%= image_tag current_user[:image], size: '32x32', class: "img-thumbnail" %>
+				<p class="navbar-text mb-0 px-1 text-white">
+					<%= current_user[:name] %>
+				</p>
+			</li>
+			<li class="nav-item">
+				<%= link_to "Logout", destroy_user_session_path, { class:"nav-link", method: :delete } %>
+			</li>
+		</ul>
 	</div>
-	<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-		<% if current_user.nil? %>
-		<li class="nav-item">
-			<%= image_tag(image_path('fb_icon.png'), size:'32x32') %>
-			<%= link_to "Login with Facebook", user_facebook_omniauth_authorize_path, { class: "btn btn-primary text-white fb-button", role: "button" } %>
-		</li>
-		<% else %>
-		<li class="nav-item">
-			<%= image_tag current_user[:image], size: '32x32', class: "img-thumbnail" %>
-			<p class="navbar-text mb-0 px-1 text-white">
-				<%= current_user[:name] %>
-			</p>
-		</li>
-		<li class="nav-item">
-			<%= link_to "Logout", destroy_user_session_path, { class:"nav-link", method: :delete } %>
-		</li>
-		<% end %>
-	</ul>
+<% else %>
+<header class="navbar navbar-dark bg-dark fixed-top">
+	<li class="nav-item">
+		<%= image_tag(image_path('fb_icon.png'), size:'32x32') %>
+		<%= link_to "Login with Facebook", user_facebook_omniauth_authorize_path, { class: "btn btn-primary text-white fb-button", role: "button" } %>
+	</li>
+<% end %>
 </header>

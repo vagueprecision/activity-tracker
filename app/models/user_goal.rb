@@ -59,7 +59,7 @@ class UserGoal < ApplicationRecord
 	end
 
 	def update_count
-		self.count = UserActivity.where(user_id: user_id, activity_id: activity_id, performed_at: starts_at...ends_at).count
+		self.count = UserActivity.where(user_id: user_id, activity_id: activity_id, performed_at: starts_at...ends_at).sum(:perform_count)
 	end
 
 	def increment(amount)
@@ -71,11 +71,6 @@ class UserGoal < ApplicationRecord
 		self.count -= amount
 		save!
 	end
-
-  # TODO update to compare where progress should be thru year
-  def on_track?
-	  true
-  end
 
 	def percent_complete
 		count / target * 100

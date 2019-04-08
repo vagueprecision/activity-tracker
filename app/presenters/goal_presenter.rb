@@ -49,4 +49,52 @@ class GoalPresenter < BasePresenter
   def display_date
     'as of: ' + @most_recent_date.strftime('%-m/%-d').to_s if @most_recent_date
   end
+
+  # sorting
+  def sorting_order(column_name)
+    case column_name
+    when 'name'
+      activity.name.downcase
+    when 'progress' # High to low
+      -percent_complete
+    else # magic
+      magic
+    end
+  end
+
+  def magic
+    score = 0
+
+    # higher if performed count in an ideal world this is LOGGED count...don't have count of user_activity TODO
+    score += count
+
+    # higher if performed more recently
+    days_since = (Time.now.to_date - (@most_recent_date || 1.year.ago).to_date).to_i
+    score += case days_since
+    when 0 #not likely to modify again today, but higher than > 90 days
+      10
+    when 1...8
+      50
+    when 8...14
+      30
+    when 14...30
+      20
+    when 30...60
+      5
+    when 60..90
+      2
+    else # greater than 3 months
+      0
+    end
+
+    # from results, prioritize by how far behind the user is
+    score += 8 if current_progress == UserGoal::SLIGHTLY_BEHIND
+    score += 20 if current_progress == UserGoal::WAY_BEHIND
+
+    # invert since higher scores go last
+    score *= -1
+
+    # tie breaker...by name
+    score += activity.name.upcase.ord.to_d / 100
+  end
 end

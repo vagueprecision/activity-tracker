@@ -5,6 +5,9 @@ Rails.application.routes.draw do
 
   resources :dashboard, only: [:index]
   resources :goals, controller: 'user_goals', only: [:new, :edit, :create, :update, :destroy] do
+    collection do
+      get :card_list
+    end
     resources :activities, controller: 'user_activities', only: [:index]
   end
   resources :activities, controller: 'user_activities', only: [:new, :edit, :create, :update, :destroy, :index]

@@ -48,6 +48,17 @@ class UserGoalsController < ApplicationController
     redirect_back fallback_location: dashboard_index_path
   end
 
+  def card_list
+    activity_most_recent = UserActivity.current_year.by_user(current_user.id).group(:activity_id).maximum(:performed_at)
+    goals = UserGoal.includes(:activity).where(user: current_user, year: Time.now.year) #fixed on current year for now...
+
+    @goals = goals.map { |g| GoalPresenter.new(g, view_context, activity_most_recent[g.activity_id]) }
+    @goals.sort_by!{ |g| g.sorting_order(sort_column) }
+    @goals.reverse! if sort_direction == "desc"
+
+    render partial: "goals/list"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user_goal
@@ -67,5 +78,13 @@ class UserGoalsController < ApplicationController
 
     def activity_params
       { name: permitted_params[:activity_name], unit: permitted_params[:activity_unit] }
+    end
+
+    def sort_column
+      %w[magic name progress].include?(params[:sort]) ? params[:sort] : "magic"
+    end
+
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end
